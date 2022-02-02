@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/front-sushiran/static/css/main.de4e54c2.css",
+    "main.js": "/front-sushiran/static/js/main.7a580641.js",
+    "static/js/787.767977c5.chunk.js": "/front-sushiran/static/js/787.767977c5.chunk.js",
+    "static/media/sushiran-reservation.jpg": "/front-sushiran/static/media/sushiran-reservation.ad8a51e80599ac8f874c.jpg",
+    "static/media/Anton-Regular.ttf": "/front-sushiran/static/media/Anton-Regular.170b842f9a8cd6150a0d.ttf",
+    "static/media/sushi-new2.jpg": "/front-sushiran/static/media/sushi-new2.b056ff56ded61d0f4a3f.jpg",
+    "static/media/sushi-new3.jpg": "/front-sushiran/static/media/sushi-new3.da7a5be4f58ad1ec586b.jpg",
+    "static/media/sushi-new1.jpg": "/front-sushiran/static/media/sushi-new1.e168764dd7e08516cdbd.jpg",
+    "static/media/sushiranLogo.png": "/front-sushiran/static/media/sushiranLogo.e2c2b626efc5c1d82682.png",
+    "index.html": "/front-sushiran/index.html",
+    "main.de4e54c2.css.map": "/front-sushiran/static/css/main.de4e54c2.css.map",
+    "main.7a580641.js.map": "/front-sushiran/static/js/main.7a580641.js.map",
+    "787.767977c5.chunk.js.map": "/front-sushiran/static/js/787.767977c5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.de4e54c2.css",
+    "static/js/main.7a580641.js"
+  ]
+}
