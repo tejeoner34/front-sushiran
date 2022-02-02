@@ -1,0 +1,45 @@
+
+.time-card{
+    width: 100px;
+    background-color: brown;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+
+    p{
+        margin-bottom:.7rem;
+        margin-top: .7rem;
+    }
+}
+
+.time-card--selected{
+    width: 100px;
+    background-color: rgb(104, 27, 27);
+    display: flex;
+    justify-content: center;   
+    
+    p{
+        margin-bottom:.7rem;
+        margin-top: .7rem;
+    }
+}
+
+.time-card--unvailable{
+    width: 100px;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    
+    p{
+        margin-bottom:.7rem;
+        margin-top: .7rem;
+    }
+}
+
+.modal-content{
+    align-items: center;
+}
+
+.modal-dialog{
+    width: 100%;
+}
