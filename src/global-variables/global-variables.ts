@@ -1,2 +1,2 @@
 
-export const serverFetch = 'http://localhost:3001/reservations/'
+export const serverFetch = 'https://sushiran-project.herokuapp.com/reservations/';
