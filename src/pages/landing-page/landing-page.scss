@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'Anton';
+    src: url('../../fonts/Anton-Regular.ttf');
+}
 
 .home{
     display: flex;
@@ -9,8 +13,19 @@
 .home__video-container{
     position: relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
     max-height: 600px;
     overflow: hidden;
+    text-align: center;
+
+    h1{
+        position: absolute;
+        z-index: 100;
+        font-size: 6rem;
+        font-family: 'Anton', sans-serif;
+    }
+
 }
 
 .video__background{
@@ -40,10 +55,12 @@
         display: flex;
         gap: 1rem;
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     .news__card{
         width: 30%;
+        min-width: 170px;
         border: 1px solid gray;
         display: flex;
         flex-direction: column;
@@ -66,6 +83,10 @@
 
     .card__info{
         text-align: center;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
         h3{
             color: #f9ff2f;
@@ -113,6 +134,27 @@
 }
 
 
+@media (max-width:690px){
+    .home__video-container h1{
+        font-size: 4rem;
+    }
+
+    .home__news-container .news__card{
+        width: 90%;
+
+        p{
+            font-size: 1.1rem;
+        }
+    }
+
+    .home__reservation-section{
+        justify-content: center;
+
+        .reservation-form{
+            margin-right: 0;
+        }
+    }
+}
 
 
 

@@ -54,7 +54,7 @@ export const ReservationForm: React.FC<Props> = ({ time, reservationNumber, rese
                         className='bg-secondaryd-flex d-flex flex-column justify-content-center align-items-center rounded p-3'>
                         <h2>Thanks for your reservation!</h2>
                         <p>We have sent you an email with the reservation details.</p>
-                        <Button onClick={()=>setShow(false)}>Close</Button>
+                        <Button onClick={()=>setShow()}>Close</Button>
                     </div>
                     :
                     <div style={{ color: 'black', maxWidth: '500px', gap: '1rem' }}

@@ -109,6 +109,8 @@ export default function Landing() {
     return (
         <div className='home'>
             <div className='home__video-container'>
+            <h1>SUSHIRAN RESTAURANT</h1>
+
                 <video className="video" autoPlay muted loop src={process.env.PUBLIC_URL + '/assets/video/sushi.mp4'}>
                 </video>
                 <div className='video__background'>

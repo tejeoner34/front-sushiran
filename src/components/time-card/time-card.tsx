@@ -20,7 +20,9 @@ export const TimeCard: React.FC<Props> = ({ data, reservationDate, reservationNu
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setIsSelected(false)
-        setShow(false)};
+        setShow(false)
+        window.location.reload();
+    };
     const handleShow = () => setShow(true);
 
     const [isSelected, setIsSelected] = useState(false)
@@ -44,7 +46,7 @@ export const TimeCard: React.FC<Props> = ({ data, reservationDate, reservationNu
             }
             <Modal className='d-flex align-items-center'  show={show} onHide={handleClose}>
 
-                <ReservationForm setShow={setShow} time={data.time} reservationDate={reservationDate} reservationNumber={reservationNumber} ></ReservationForm>
+                <ReservationForm setShow={handleClose} time={data.time} reservationDate={reservationDate} reservationNumber={reservationNumber} ></ReservationForm>
 
             </Modal>
 
