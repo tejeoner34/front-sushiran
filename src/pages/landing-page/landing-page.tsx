@@ -5,9 +5,10 @@ import sushi3 from '../../assets/img/sushi-new3.jpg';
 import sushiranReservation from '../../assets/img/sushiran-reservation.jpg';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {useRef, useState } from 'react';
-import {TimeCard} from '../../components/time-card/time-card';
+import { useRef, useState } from 'react';
+import { TimeCard } from '../../components/time-card/time-card';
 import { serverFetch } from '../../global-variables/global-variables';
+import { Spinner } from 'react-bootstrap';
 
 
 export default function Landing() {
@@ -46,39 +47,49 @@ export default function Landing() {
         '23:00',
         '23:30'
     ];
-    const numberClients = [2,4,6,8];
+    const numberClients = [2, 4, 6, 8];
 
     //State variables
 
     const [availbaleTimes, setAvailableTimes] = useState([]);
     const [reservationNumber, setReservationNumber] = useState("");
-    const [reservationDate, setReservationDate] = useState("")
+    const [reservationDate, setReservationDate] = useState("");
+    const [dataIsRequested, setDataIsRequested] = useState(false);
+    const [doWeHaveResponseData, setDoWeHaveResponseData] = useState(false);
 
     //ref variables
 
     const timesRef = useRef<HTMLDivElement | null>(null);
     const executeScrollToTimes = () => timesRef.current?.scrollIntoView();
+    const loaderRef = useRef<HTMLDivElement | null>(null);
+    const executeScrollToLoader = () => loaderRef.current?.scrollIntoView();
+
 
     const today = new Date();
     let day = today.getDate()
     let month = today.getMonth() + 1
     let year = today.getFullYear()
 
-    const getDate = function(day:number, month:number, year:number){
-        if(month>9){
+    const getDate = function (day: number, month: number, year: number) {
+        if (month > 9) {
             return `${year}-${month}-${day}`
-        }else{
+        } else {
             return `${year}-0${month}-${day}`
         }
     }
 
-    const onSubmit = (e:React.SyntheticEvent)=>{
+    const handleClick = () =>{
+        setDataIsRequested(true);
+    }
+
+    const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
+
         const target = e.target as typeof e.target & {
             date: { value: string };
             number: { value: string };
-            time: {value: string};
-          };
+            time: { value: string };
+        };
         const date = target.date.value;
         const number = target.number.value;
         const time = target.time.value;
@@ -94,22 +105,25 @@ export default function Landing() {
             body: JSON.stringify({
                 date: date,
                 number: number,
-                time:time
+                time: time
             })
         }
+        executeScrollToLoader();
 
         fetch(serverFetch, options)
-            .then(r=>r.json())
-            .then(d=> {
+            .then(r => r.json())
+            .then(d => {
                 setAvailableTimes(d);
+                setDoWeHaveResponseData(true);
                 executeScrollToTimes();
             })
+
     }
 
     return (
         <div className='home'>
             <div className='home__video-container'>
-            <h1>SUSHIRAN RESTAURANT</h1>
+                <h1>SUSHIRAN RESTAURANT</h1>
 
                 <video className="video" autoPlay muted loop src={process.env.PUBLIC_URL + '/assets/video/sushi.mp4'}>
                 </video>
@@ -151,39 +165,49 @@ export default function Landing() {
             <div style={reservationSectionStyle} className='home__reservation-section'>
                 <Form onSubmit={onSubmit} className='reservation-form'>
                     <h3>Make your Reservation</h3>
-                    <Form.Group style={{gap:'1rem'}} className='w-75 d-flex flex-column align-items-center  form__inputs'>
-                        <Form.Group style={{width:'200px'}}>
+                    <Form.Group style={{ gap: '1rem' }} className='w-75 d-flex flex-column align-items-center  form__inputs'>
+                        <Form.Group style={{ width: '200px' }}>
                             <Form.Label>Choose a date</Form.Label>
-                            <Form.Control required min={getDate(day, month, year)} style={{color:'black'}} className='bg-secondary text-dark' type='date' name='date' />
+                            <Form.Control required min={getDate(day, month, year)} style={{ color: 'black' }} className='bg-secondary text-dark' type='date' name='date' />
                         </Form.Group>
-                        <Form.Group style={{width:'200px'}}>
+                        <Form.Group style={{ width: '200px' }}>
                             <Form.Label>Number of people</Form.Label>
-                            <Form.Select style={{color:'black'}} className='bg-secondary' name='number' >
+                            <Form.Select style={{ color: 'black' }} className='bg-secondary' name='number' >
                                 {
-                                    numberClients.map((client, index)=> <option key={index}>{client}</option>)
+                                    numberClients.map((client, index) => <option key={index}>{client}</option>)
                                 }
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group style={{width:'200px'}}>
+                        <Form.Group style={{ width: '200px' }}>
                             <Form.Label>Choose a time</Form.Label>
-                            <Form.Select required style={{color:'black'}} className='bg-secondary' name='time' aria-label="Default select example">
+                            <Form.Select required style={{ color: 'black' }} className='bg-secondary' name='time' aria-label="Default select example">
                                 {
                                     timeArray.map((time, index) => <option key={index}>{time}</option>)
                                 }
                             </Form.Select>
                         </Form.Group>
-                        <Button size='lg' type='submit'>Search</Button>
+                        <Button onClick={handleClick} size='lg' type='submit'>Search</Button>
                     </Form.Group>
                 </Form>
             </div>
             {
-                availbaleTimes.length>0 && 
-                <div ref={timesRef} style={{marginBottom:'3rem'}} className='home__available-times d-flex flex-column align-items-center gap-4'>
-                    <h2>Available Times</h2>
-                    <div className='d-flex gap-3 flex-wrap justify-content-center'>
-                    {availbaleTimes.map((time:object,index:number)=> <TimeCard
-                     key={index} data={time} reservationDate={reservationDate} reservationNumber={reservationNumber}/>)}
-                    </div>
+                dataIsRequested &&
+                <div style={{ marginBottom: '3rem' }} className='home__available-times d-flex flex-column align-items-center gap-4'>
+                    {
+                        !doWeHaveResponseData?
+                        <div  className='p-3'>
+                        <Spinner animation="border"></Spinner>
+                        </div>
+                        :
+                        <div ref={timesRef} className='home__available-times d-flex flex-column align-items-center gap-4'>
+                        <h2>Available Times</h2>
+                        <div className='d-flex gap-3 flex-wrap justify-content-center'>
+                        {availbaleTimes.map((time:object,index:number)=> <TimeCard
+                        key={index} data={time} reservationDate={reservationDate} reservationNumber={reservationNumber}/>)}
+                        </div>
+                        </div>
+                    }
+                    <div ref={loaderRef}></div>
                 </div>
             }
         </div>
