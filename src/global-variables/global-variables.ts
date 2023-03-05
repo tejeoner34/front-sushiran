@@ -1,2 +1,2 @@
 
-export const serverFetch = 'https://sushiran-project.herokuapp.com/reservations/';
+export const serverFetch = 'https://sushiran-project.onrender.com/reservations/';

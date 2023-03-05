@@ -5,13 +5,14 @@ import sushi3 from '../../assets/img/sushi-new3.jpg';
 import sushiranReservation from '../../assets/img/sushiran-reservation.jpg';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TimeCard } from '../../components/time-card/time-card';
 import { serverFetch } from '../../global-variables/global-variables';
 import { Spinner } from 'react-bootstrap';
 
 
 export default function Landing() {
+
 
     //Day and Number of people varibales from reservation from.
 
@@ -77,6 +78,8 @@ export default function Landing() {
             return `${year}-0${month}-${day}`
         }
     }
+
+    const currentDay = getDate(day, month, year)
 
     const handleClick = () =>{
         setDataIsRequested(true);
